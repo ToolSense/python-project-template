@@ -1,0 +1,19 @@
+[tool.black]
+line-length = 90
+exclude = '''
+/(
+  | migrations
+  | venv
+)/
+'''
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 90
+skip_gitignore = true
+skip = 'migrations'
+filter_files = true
+ensure_newline_before_comments = true
