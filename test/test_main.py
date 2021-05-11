@@ -14,7 +14,7 @@ class TestMain(unittest.TestCase):
     Test Class that tests all functions of main script
     """
 
-    def test_print_hi(self):
+    def test_print_hi(self) -> None:
         captured_output: io.StringIO = io.StringIO()
         sys.stdout = captured_output
         print_hi("test")

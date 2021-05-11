@@ -41,7 +41,7 @@ ${VENV_NAME}/bin/activate: requirements.txt
 
 lint: dev
 	${PYTHON} -m pylint --rcfile=.pylintrc *.py
-	${PYTHON} -m mypy --namespace-packages --ignore-missing-imports --exclude '(venv|migrations)' .
+	${PYTHON} -m mypy --strict --namespace-packages --ignore-missing-imports --exclude '(venv|migrations)' .
 
 check_style: dev
 	${PYTHON} -m isort --check --diff .
