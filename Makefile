@@ -1,4 +1,4 @@
-.PHONY: all dev ci venv lint check_style coverage run docker_up docker_down test clean
+.PHONY: all dev ci venv lint style check_style coverage run docker_up docker_down test clean
 
 SHELL:=/bin/bash
 
@@ -11,6 +11,8 @@ all:
 	@echo "    Create development environment."
 	@echo "make check_style"
 	@echo "    Check code-style"
+	@echo "make style"
+	@echo "    Reformat the code to match the style"
 	@echo "make lint"
 	@echo "    Run lint on project."
 	@echo "make test"
@@ -42,6 +44,10 @@ ${VENV_NAME}/bin/activate: requirements.txt
 lint: dev
 	${PYTHON} -m pylint --rcfile=.pylintrc *.py
 	${PYTHON} -m mypy --strict --namespace-packages --ignore-missing-imports --exclude '(venv|migrations)' .
+
+style: dev
+	${PYTHON} -m isort .
+	${PYTHON} -m black .
 
 check_style: dev
 	${PYTHON} -m isort --check --diff .
