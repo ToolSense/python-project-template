@@ -1,0 +1,6 @@
+venv
+Dockerfile
+.idea
+__pycache__
+.mypy_cache
+.github
