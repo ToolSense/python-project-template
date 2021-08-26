@@ -1,4 +1,4 @@
-.PHONY: all dev ci venv lint style check_style coverage run docker_up docker_down test clean
+.PHONY: all dev venv check lint style check_style coverage run docker_up docker_down test clean
 
 SHELL:=/bin/bash
 
@@ -9,6 +9,8 @@ PYTHON=$(shell pwd)/${VENV_NAME}/bin/python
 all:
 	@echo "make dev"
 	@echo "    Create development environment."
+	@echo "make check"
+	@echo "    Check code-style, run linters, run tests"
 	@echo "make check_style"
 	@echo "    Check code-style"
 	@echo "make style"
@@ -61,7 +63,7 @@ coverage: dev
 	${VENV_NAME}/bin/coverage report -m
 
 run: dev
-	${PYTHON} manage.py runserver
+	${PYTHON} main.py
 
 docker_up:
 	docker-compose up --build -d
@@ -69,6 +71,8 @@ docker_up:
 docker_down:
 	docker-compose down
 
-clean:
+clean: docker_down
 	find . -name '*.pyc' -delete
 	rm -rf $(VENV_NAME) *.eggs *.egg-info dist build docs/_build .cache .mypy_cache
+
+check: check_style lint test
