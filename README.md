@@ -7,7 +7,8 @@ Enjoy the development of your new project :beach_umbrella:
   * Creating virtualenv
   * Installing requirements
   * Code-style checking with `isort` and `black`
-  * Linting with `pylint` and type checking `mypy`
+  * Linting with `prospector` (`pylint`, `pycodestyle`, `Pyflakes`, `Mccabe`, `Dodgy`, `Pydocstyle`)
+  * Type checking with `mypy`
   * Unit testing
   * Coverage checking
   * Docker Compose up/down
@@ -22,13 +23,17 @@ Enjoy the development of your new project :beach_umbrella:
   * Change git origin to your new git repo. 
 * Run `make` for the help message.
 
+## Pre-requirements
+* It's usually good idea to use [pyenv](https://github.com/pyenv/pyenv)
+* [Poetry](https://github.com/python-poetry/poetry) version **1.2.0b2** or higher 
+
 For example `make check` will do:
 * create virtualenv (if it doesn't created yet)
-* install requirements (if it doesn't installed yet or if requirements.txt changed)
-* install dev requirements (if it doesn't installed yet or if requirements_dev.txt changed)
-* run `isort --check`
-* run `black --check`
-* run `pylint`
+* install requirements (if it doesn't installed yet)
+* install dev requirements (if it doesn't installed yet)
+* run `isort --check --diff`
+* run `black --check --diff`
+* run `prospector`
 * run `mypy`
 * run unit tests
 

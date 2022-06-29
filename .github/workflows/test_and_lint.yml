@@ -1,4 +1,6 @@
-name: test_and_lint
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+
+name: Tests & Code Quality
 
 on:
   pull_request:
@@ -8,10 +10,21 @@ on:
 
 jobs:
   test_and_lint:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v2.0.0
+        with:
+          poetry-version: 1.2.0b2
 
       - name: Check style, Linters, Tests
         run: make check
