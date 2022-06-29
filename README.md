@@ -7,8 +7,7 @@ Enjoy the development of your new project :beach_umbrella:
   * Creating virtualenv
   * Installing requirements
   * Code-style checking with `isort` and `black`
-  * Linting with `prospector` (`pylint`, `pycodestyle`, `Pyflakes`, `Mccabe`, `Dodgy`, `Pydocstyle`)
-  * Type checking with `mypy`
+  * Linting with `prospector` (`mypy`, `pylint`, `pycodestyle`, `Pyflakes`, `Mccabe`, `Dodgy`, `Pydocstyle`, `bandit`)
   * Unit testing
   * Coverage checking
   * Docker Compose up/down
@@ -17,15 +16,15 @@ Enjoy the development of your new project :beach_umbrella:
 * GitHub Actions workflow
 * Dockerfile & docker-compose
 
+## Pre-requirements
+* It's usually good idea to use [pyenv](https://github.com/pyenv/pyenv)
+* [Poetry](https://github.com/python-poetry/poetry) version **1.2.0b2** or higher 
+
 ## Usage
 * Use the repo as a GitHub template OR:
   * Clone the repo.
   * Change git origin to your new git repo. 
 * Run `make` for the help message.
-
-## Pre-requirements
-* It's usually good idea to use [pyenv](https://github.com/pyenv/pyenv)
-* [Poetry](https://github.com/python-poetry/poetry) version **1.2.0b2** or higher 
 
 For example `make check` will do:
 * create virtualenv (if it doesn't created yet)
