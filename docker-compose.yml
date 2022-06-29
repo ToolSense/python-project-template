@@ -1,6 +1,10 @@
 version: "3.7"
 
-services:
-  main:
-    build:
-      context: .
+#services:
+#  main:
+#    build:
+#      context: .
+#      target: runtime
+#    command: python main.py
+#    ports:
+#      - "8000:8000"

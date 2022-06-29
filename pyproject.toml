@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 90
+line-length = 120
 exclude = '''
 /(
   | migrations
@@ -8,12 +8,45 @@ exclude = '''
 '''
 
 [tool.isort]
+profile = "black"
+lines_after_imports = 2
+skip = [".gitignore", ".dockerignore", "migrations", "venv"]
 multi_line_output = 3
 include_trailing_comma = true
 force_grid_wrap = 0
 use_parentheses = true
-line_length = 90
-skip_gitignore = true
-skip = 'migrations'
-filter_files = true
 ensure_newline_before_comments = true
+line_length = 120
+
+[tool.poetry]
+name = "python-project-template"
+version = "0.1.0"
+description = "project description"
+authors = ["Andrei Okulov <andrei.okulov@toolsense.io>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+result = "^0.8.0"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+ipython = "^8.4.0"
+
+[tool.poetry.group.ci]
+optional = true
+
+[tool.poetry.group.ci.dependencies]
+isort = "^5.10.1"
+black = "^22.3.0"
+coverage = "^6.4.1"
+prospector = {extras = ["with_bandit", "with_mypy"], version = "^1.7.7"}
+pbr = "^5.9.0"  # bandit dep
+stevedore = "^3.5.0"  # bandit dep
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

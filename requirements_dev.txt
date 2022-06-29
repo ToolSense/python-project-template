@@ -1,5 +1,0 @@
-isort
-black
-mypy
-pylint
-coverage

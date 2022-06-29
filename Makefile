@@ -1,26 +1,26 @@
-.PHONY: all dev venv check lint style check_style coverage run docker_up docker_down test clean
+.PHONY: all dev ci lint check_style coverage run docker_up docker_down test clean
 
 SHELL:=/bin/bash
-
-VENV_NAME?=venv
-PYTHON=$(shell pwd)/${VENV_NAME}/bin/python
-
+RUN=poetry run
+PYTHON=${RUN} python
 
 all:
 	@echo "make dev"
 	@echo "    Create development environment."
-	@echo "make check"
-	@echo "    Check code-style, run linters, run tests"
+	@echo "make ci"
+	@echo "    Create ci environment."
+	@echo "make lint"
+	@echo "    Run lint on project."
 	@echo "make check_style"
 	@echo "    Check code-style"
 	@echo "make style"
 	@echo "    Reformat the code to match the style"
-	@echo "make lint"
-	@echo "    Run lint on project."
-	@echo "make test"
-	@echo "    Run tests on project."
+	@echo "make check"
+	@echo "    Check code-style, run linters, run tests"
 	@echo "make coverage"
 	@echo "    Run code coverage check."
+	@echo "make test"
+	@echo "    Run tests on project."
 	@echo "make run"
 	@echo "    Run development web-server."
 	@echo "make docker_up"
@@ -30,49 +30,43 @@ all:
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
-dev: venv ${VENV_NAME}/requirements_dev
-${VENV_NAME}/requirements_dev: requirements_dev.txt
-	${PYTHON} -m pip install -r requirements_dev.txt
-	touch ${VENV_NAME}/requirements_dev
+dev: ci
+	poetry install --with dev
 
-venv: ${VENV_NAME}/bin/activate
-${VENV_NAME}/bin/activate: requirements.txt
-	which virtualenv || python3 -m pip install virtualenv
-	test -d ${VENV_NAME} || virtualenv -p python3 ${VENV_NAME}
-	${PYTHON} -m pip install -U pip
-	${PYTHON} -m pip install -r requirements.txt
-	touch ${VENV_NAME}/bin/activate
+ci:
+	poetry install --with ci
 
-lint: dev
-	${PYTHON} -m pylint --rcfile=.pylintrc *.py
-	${PYTHON} -m mypy --strict --namespace-packages --ignore-missing-imports --exclude '(venv|migrations)' .
+lint: ci
+	${RUN} prospector --with-tool mypy --with-tool bandit
 
-style: dev
-	${PYTHON} -m isort .
-	${PYTHON} -m black .
-
-check_style: dev
+check_style: ci
 	${PYTHON} -m isort --check --diff .
 	${PYTHON} -m black --check --diff .
 
-test: dev
+style: ci
+	${PYTHON} -m isort .
+	${PYTHON} -m black .
+
+coverage: ci docker_up
+	${RUN} coverage run manage.py test
+	${RUN} coverage report -m
+
+check: check_style lint test
+
+test: ci docker_up
 	${PYTHON} -m unittest
 
-coverage: dev
-	${VENV_NAME}/bin/coverage run -m unittest
-	${VENV_NAME}/bin/coverage report -m
-
-run: dev
+run: dev docker_up
 	${PYTHON} main.py
 
-docker_up:
+docker_up docker_start:
 	docker-compose up --build -d
 
-docker_down:
+docker_down docker_stop:
 	docker-compose down
 
 clean: docker_down
+	poetry env list | awk '{print $$1}' | xargs -I {} poetry env remove {}
 	find . -name '*.pyc' -delete
-	rm -rf $(VENV_NAME) *.eggs *.egg-info dist build docs/_build .cache .mypy_cache
+	rm -rf *.eggs *.egg-info dist build docs/_build .cache .mypy_cache
 
-check: check_style lint test
