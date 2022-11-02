@@ -18,7 +18,7 @@ Enjoy the development of your new project :beach_umbrella:
 
 ## Pre-requirements
 * It's usually good idea to use [pyenv](https://github.com/pyenv/pyenv)
-* [Poetry](https://github.com/python-poetry/poetry) version **1.2.0b2** or higher 
+* [Poetry](https://github.com/python-poetry/poetry) version **1.2.0** or higher 
 
 ## Usage
 * Use the repo as a GitHub template OR:
