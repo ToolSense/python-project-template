@@ -1,8 +1,9 @@
 name: deploy_prod
 
 on:
-  release:
-    types: [ published ]
+  push:
+    tags:
+      - '*'
 
 jobs:
   test_and_lint:
