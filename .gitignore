@@ -151,3 +151,6 @@ tspubsub.json
 
 mysql/*
 validate*
+
+# Qt related files
+ui_main_window.py

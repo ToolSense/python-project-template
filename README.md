@@ -45,3 +45,10 @@ GitHub Actions use the same (`make check`) command to check pull requests
 # GUI Design Guide
 ## Documentation
 [PySide6 Tutorial](https://www.pythonguis.com/pyside6-tutorial/)
+
+## Setting up Qt Designer and UI Compilation
+To be able to simplify development, it is recommended to install the VS Code Extension ["Qt for Python"](https://marketplace.visualstudio.com/items?itemName=seanwu.vscode-qt-for-python). The main advantage that this extension gives is quick access to the designer and eventual compilation of the GUI to Python code. After the installation there will be two new important options if you right click a .ui-file:
+- Compile Qt UI File (uic)
+- Edit Qt UI File (designer)
+
+Both these tools are installed as part of the PySide6-package and is available where the package is installed. There is a shell script included this repo, pyside_path.sh, which echoes the path to the PySide6 installation directory. Add this path to `qtForPython.designer.path` in `.vscode/settings.json`.
