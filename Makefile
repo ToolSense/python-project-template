@@ -23,10 +23,6 @@ all:
 	@echo "    Run tests on project."
 	@echo "make run"
 	@echo "    Run development web-server."
-	@echo "make docker_up"
-	@echo "    Start docker-compose services."
-	@echo "make docker_down"
-	@echo "    Stop docker-compose services."
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
@@ -47,25 +43,19 @@ style: ci
 	${PYTHON} -m isort .
 	${PYTHON} -m black .
 
-coverage: ci docker_up
+coverage: ci
 	${RUN} coverage run manage.py test
 	${RUN} coverage report -m
 
 check: check_style lint test
 
-test: ci docker_up
+test: ci
 	${PYTHON} -m unittest
 
-run: dev docker_up
+run: dev
 	${PYTHON} main.py
 
-docker_up docker_start:
-	docker-compose up --build -d
-
-docker_down docker_stop:
-	docker-compose down
-
-clean: docker_down
+clean:
 	poetry env list | awk '{print $$1}' | xargs -I {} poetry env remove {}
 	find . -name '*.pyc' -delete
 	rm -rf *.eggs *.egg-info dist build docs/_build .cache .mypy_cache
