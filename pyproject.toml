@@ -19,15 +19,15 @@ ensure_newline_before_comments = true
 line_length = 120
 
 [tool.poetry]
-name = "python-project-template"
+name = "python-gui-project-template"
 version = "0.1.0"
 description = "project description"
-authors = ["Andrei Okulov <andrei.okulov@toolsense.io>"]
+authors = ["Robert Nyström <robert.nystrom@toolsense.io>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11.0rc2"
+python = "^3.11"
 result = "^0.8.0"
 
 [tool.poetry.group.dev]

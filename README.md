@@ -41,3 +41,7 @@ GitHub Actions use the same (`make check`) command to check pull requests
 ## ToDo
 
 * Pre-commit hook
+
+# GUI Design Guide
+## Documentation
+[PySide6 Tutorial](https://www.pythonguis.com/pyside6-tutorial/)
