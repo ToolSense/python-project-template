@@ -51,4 +51,4 @@ To be able to simplify development, it is recommended to install the VS Code Ext
 - Compile Qt UI File (uic)
 - Edit Qt UI File (designer)
 
-Both these tools are installed as part of the PySide6-package and is available where the package is installed. There is a shell script included this repo, pyside_path.sh, which echoes the path to the PySide6 installation directory. Add this path to `qtForPython.designer.path` in `.vscode/settings.json`.
+Both these tools are installed as part of the PySide6-package and is available where the package is installed. This repo is configured to store the virtual environment in the project folder under .venv and this is also where the binaries are stored. The paths should already be set up in the .vscode/settings.json-file.
