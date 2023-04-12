@@ -36,6 +36,7 @@ optional = true
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.6.0"
+mypy = "^1.2.0"
 
 [tool.poetry.group.ci]
 optional = true
