@@ -1,6 +1,4 @@
 {
-    "qtForPython.designer.path": "/home/golgor/.cache/pypoetry/virtualenvs/python-gui-project-template-tzPZB3ft-py3.11/lib/python3.11/site-packages/PySide6/designer",
-    "qtForPython.uic.args": [
-        "-o \"${workspaceFolder}${pathSeparator}${relativeFileDirname}${pathSeparator}${fileBasenameNoExtension}.py\""
-    ]
+    "qtForPython.designer.path": "${workspaceFolder}${pathSeparator}.venv${pathSeparator}bin${pathSeparator}pyside6-designer",
+    "qtForPython.uic.path": "${workspaceFolder}${pathSeparator}.venv${pathSeparator}bin${pathSeparator}pyside6-uic",
 }
