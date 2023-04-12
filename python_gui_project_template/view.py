@@ -4,7 +4,9 @@ from PySide6.QtWidgets import QMainWindow
 
 from python_gui_project_template.model import Model
 from python_gui_project_template.ui import get_ui_from_file
-from python_gui_project_template.ui.ui_main_window import Ui_MainWindow
+
+# from python_gui_project_template.ui.ui_main_window import Ui_MainWindow
+from python_gui_project_template.ui.main_window_ui import Ui_MainWindow
 
 
 class View(QMainWindow):
