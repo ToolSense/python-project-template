@@ -29,7 +29,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "3.11.*"
 result = "^0.8.0"
-pyside6 = "^6.4.2"
+pyside6 = "^6.5.0"
 
 [tool.poetry.group.dev]
 optional = true
