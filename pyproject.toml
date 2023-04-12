@@ -37,13 +37,13 @@ optional = true
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.6.0"
 mypy = "^1.2.0"
+black = "^23.3.0"
 
 [tool.poetry.group.ci]
 optional = true
 
 [tool.poetry.group.ci.dependencies]
 isort = "^5.10.1"
-black = "^22.10.0"
 coverage = "^6.5.0"
 prospector = {extras = ["with_bandit", "with_mypy"], version = "^1.7.7"}
 pbr = "^5.11.0"  # bandit dep
