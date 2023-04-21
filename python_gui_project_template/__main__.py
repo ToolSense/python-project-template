@@ -2,8 +2,8 @@ import sys
 
 from PySide6.QtWidgets import QApplication
 
-from python_gui_project_template.controller import Presenter
 from python_gui_project_template.model import Model
+from python_gui_project_template.presenter import Presenter
 from python_gui_project_template.view import View
 
 
