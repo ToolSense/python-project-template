@@ -9,5 +9,6 @@ class Presenter:
 
         self.view.bind_push_button(self.button_press_callback)
 
-    def button_press_callback(self) -> None:
+    @staticmethod
+    def button_press_callback() -> None:
         print("Button is Pressed!")

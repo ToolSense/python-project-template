@@ -7,8 +7,6 @@ PYTHON=${RUN} python
 all:
 	@echo "make dev"
 	@echo "    Create development environment."
-	@echo "make ci"
-	@echo "    Create ci environment."
 	@echo "make lint"
 	@echo "    Run lint on project."
 	@echo "make check_style"
@@ -26,30 +24,26 @@ all:
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
-dev: ci
+dev:
 	poetry install --with dev
 
-ci:
-	poetry install --with ci
-
-lint: ci
-	${RUN} prospector --with-tool mypy --with-tool bandit
-
-check_style: ci
+check_style:
 	${PYTHON} -m isort --check --diff .
 	${PYTHON} -m black --check --diff .
 
-style: ci
-	${PYTHON} -m isort .
+style:
 	${PYTHON} -m black .
 
-coverage: ci
+coverage:
 	${RUN} coverage run manage.py test
 	${RUN} coverage report -m
 
+lint:
+	${RUN} flake8
+
 check: check_style lint test
 
-test: ci
+test:
 	${PYTHON} -m unittest
 
 run: dev

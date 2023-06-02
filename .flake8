@@ -1,0 +1,12 @@
+[flake8]
+exclude =
+    .git,
+    .mypy_cache,
+    __pycache__,
+    .venv
+    */ui/*
+
+filename = *.py
+accept-encodings = utf-8
+max-complexity = 12
+max-line-length = 119
