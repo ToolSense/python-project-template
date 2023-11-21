@@ -1,28 +1,8 @@
-[tool.black]
-line-length = 120
-exclude = '''
-/(
-  | migrations
-  | venv
-)/
-'''
-
-[tool.isort]
-profile = "black"
-lines_after_imports = 2
-skip = [".gitignore", ".dockerignore", "migrations", "venv"]
-multi_line_output = 3
-include_trailing_comma = true
-force_grid_wrap = 0
-use_parentheses = true
-ensure_newline_before_comments = true
-line_length = 120
-
 [tool.poetry]
 name = "python-project-template"
 version = "0.1.0"
 description = "project description"
-authors = ["Andrei Okulov <andrei.okulov@toolsense.io>"]
+authors = ["Robert Nyström <robert.nystrom@toolsense.io>"]
 license = "MIT"
 readme = "README.md"
 
@@ -41,6 +21,8 @@ optional = true
 
 [tool.poetry.group.ci.dependencies]
 coverage = "^6.5.0"
+mypy = "^1.7.0"
+ruff = "^0.1.6"
 
 [build-system]
 requires = ["poetry-core"]
