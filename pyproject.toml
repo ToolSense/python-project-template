@@ -2,7 +2,10 @@
 name = "python-project-template"
 version = "0.1.0"
 description = "project description"
-authors = ["Robert Nyström <robert.nystrom@toolsense.io>"]
+authors = [
+    "Andrei Okulov <andrei.okulov@toolsense.io>",
+    "Robert Nyström <robert.nystrom@toolsense.io>"
+]
 license = "MIT"
 readme = "README.md"
 
