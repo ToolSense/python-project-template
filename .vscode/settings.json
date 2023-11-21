@@ -1,0 +1,16 @@
+{
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "off",
+    "[python]": {
+        "editor.defaultFormatter": "charliermarsh.ruff",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.fixAll": false,
+            "source.organizeImports": true
+        },
+        "editor.insertSpaces": true,
+        "editor.tabSize": 4,
+        "diffEditor.ignoreTrimWhitespace": false,
+    },
+    "editor.formatOnSave": false,
+}

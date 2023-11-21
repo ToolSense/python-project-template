@@ -1,14 +1,14 @@
-.PHONY: all dev ci lint check_style coverage run docker_up docker_down test clean
+.PHONY: all ci ruff lint check_style coverage test run run_docker docker_up docker_down clean
 
 SHELL:=/bin/bash
 RUN=poetry run
 PYTHON=${RUN} python
 
 all:
-	@echo "make dev"
-	@echo "    Create development environment."
 	@echo "make ci"
 	@echo "    Create ci environment."
+	@echo "make ruff"
+	@echo "    Run 'ruff' to lint project."
 	@echo "make lint"
 	@echo "    Run lint on project."
 	@echo "make check_style"
@@ -22,51 +22,55 @@ all:
 	@echo "make test"
 	@echo "    Run tests on project."
 	@echo "make run"
-	@echo "    Run development web-server."
+	@echo "    Run development web-server using ./manage.py runserver."
+	@echo "make run_docker"
+	@echo "    Run development web-server using the docker image."
 	@echo "make docker_up"
-	@echo "    Start docker-compose services."
+	@echo "    Starts all docker-compose services, except web."
 	@echo "make docker_down"
-	@echo "    Stop docker-compose services."
+	@echo "    Stop all docker-compose services."
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
-dev: ci
-	poetry install --with dev
-
 ci:
-	poetry install --with ci
+	poetry install --with ci --no-root
 
-lint: ci
-	${RUN} prospector --with-tool mypy --with-tool bandit
+ruff:
+	${RUN} ruff check .
+
+lint: ci ruff
+	${RUN} mypy .
 
 check_style: ci
-	${PYTHON} -m isort --check --diff .
-	${PYTHON} -m black --check --diff .
+	${RUN} ruff format --check --diff .
 
 style: ci
-	${PYTHON} -m isort .
-	${PYTHON} -m black .
+	${RUN} ruff format .
 
 coverage: ci docker_up
-	${RUN} coverage run manage.py test
-	${RUN} coverage report -m
+	${RUN} coverage run -m pytest
+	${RUN} coverage xml
+	${RUN} coverage html
 
 check: check_style lint test
 
 test: ci docker_up
-	${PYTHON} -m unittest
+	${RUN} pytest .
 
-run: dev docker_up
-	${PYTHON} main.py
+run: ci docker_up
+	${PYTHON} manage.py runserver
 
-docker_up docker_start:
-	docker-compose up --build -d
+run_docker: ci
+	docker compose --profile web up --build --attach web
 
-docker_down docker_stop:
-	docker-compose down
+docker_up:
+	docker compose --profile db up --build -d
+
+docker_down:
+	docker compose --profile web down
 
 clean: docker_down
-	poetry env list | awk '{print $$1}' | xargs -I {} poetry env remove {}
-	find . -name '*.pyc' -delete
-	rm -rf *.eggs *.egg-info dist build docs/_build .cache .mypy_cache
-
+	poetry env remove --all
+	find -type d | grep __pycache__ | xargs rm -rf
+	find -type d | grep .*_cache | xargs rm -rf
+	rm -rf *.eggs *.egg-info dist build docs/_build .cache .mypy_cache coverage/* .pytest_cache/ .ruff_cache/ report.html
