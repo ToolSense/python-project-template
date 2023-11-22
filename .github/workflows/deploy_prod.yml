@@ -3,6 +3,7 @@ name: Deploy Production
 on:
   release:
     types: [released]
+  workflow_dispatch:
 
 jobs:
   test_and_lint:
