@@ -28,6 +28,11 @@ mypy = "^1.7.0"
 ruff = "^0.1.6"
 pytest = "^7.4.3"
 
+[tool.poetry.group.prod]
+optional = true
+
+[tool.poetry.group.prod.dependencies]
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
