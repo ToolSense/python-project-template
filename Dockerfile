@@ -7,7 +7,7 @@ ENV \
     POETRY_NO_INTERACTION=1 \
     POETRY_VIRTUALENVS_CREATE=false
 
-RUN apt-get update && apt-get install -y build-essential unzip wget python-dev
+RUN apt-get update && apt-get install -y build-essential unzip wget python3-dev
 RUN pip install poetry
 
 WORKDIR /src
