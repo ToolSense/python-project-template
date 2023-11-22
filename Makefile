@@ -40,8 +40,9 @@ ci:
 ruff:
 	${RUN} ruff check .
 
+# If not developing a package, remove the --package option and replace with a dot (.)
 lint: ci ruff
-	${RUN} mypy .
+	${RUN} mypy -p python_project_template
 
 check_style: ci
 	${RUN} ruff format --check --diff .
