@@ -32,8 +32,10 @@ all:
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
+# If the package should not be installed, add --no-root to the install command.
+# This is for example the case when the package is a library or a framework such as Django.
 ci:
-	poetry install --with ci --no-root
+	poetry install --with ci
 
 ruff:
 	${RUN} ruff check .
