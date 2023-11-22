@@ -54,7 +54,8 @@ coverage: ci docker_up
 
 check: check_style lint test
 
-test: ci docker_up
+# In case of dependency of docker, docker_up can be added after ci.
+test: ci
 	${RUN} pytest .
 
 run: ci docker_up
