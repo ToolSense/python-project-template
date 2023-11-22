@@ -16,29 +16,7 @@ Enjoy the development of your new project :beach_umbrella:
 * GitHub Actions workflow
 * Dockerfile & docker-compose
 
-## Pre-requirements
-* It's usually good idea to use [pyenv](https://github.com/pyenv/pyenv)
-* [Poetry](https://github.com/python-poetry/poetry) version **1.2.0** or higher 
-
-## Usage
-* Use the repo as a GitHub template OR:
-  * Clone the repo.
-  * Change git origin to your new git repo. 
-* Run `make` for the help message.
-
-For example `make check` will do:
-* create virtualenv (if it doesn't created yet)
-* install requirements (if it doesn't installed yet)
-* install dev requirements (if it doesn't installed yet)
-* run `isort --check --diff`
-* run `black --check --diff`
-* run `prospector`
-* run `mypy`
-* run unit tests
-
-GitHub Actions use the same (`make check`) command to check pull requests 
-
-## Recommended setup for virtual environments
+## Recommended setup for developing with virtual environments
 To make best use of poetry and virtual environments it is advised to use pyenv , pipx and poetry. The main idea is that via pipx, you will always be able to run poetry to manage a repository. Poetry will then create local virtual environments to isolate the application. When initializing a new virtual environment, Poetry will use pyenv as a base for finding python versions.
 
 - Pyenv - Manage your locally available python versions
@@ -58,6 +36,38 @@ Pipx is a python tool that can install python packages so they are available glo
 - Run `pipx ensurepath`
 
 If everything worked out, you should be able to run `pipx --version`.
+
+## Pre-requirements
+* [pyenv](https://github.com/pyenv/pyenv)
+* [Poetry](https://github.com/python-poetry/poetry)
+* [pipx](https://github.com/pypa/pipx)
+
+## Usage
+The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
+
+To get started with this template:
+1. When creating a new repo, use this as a template in Github.
+2. Clone your repo
+3. Rename the python_project_template-folder to match the name of your repo
+4. Change the name in pyproject.toml to match the name of the "project", i.e. the folder or name of the repo.
+5. Make adaptions according to your need
+  - Makefile
+  - Docker & Docker-Compose
+  - Add dependencies
+6. Have fun!
+
+* Run `make` for the help message.
+
+For example `make check` will do:
+* create virtualenv (if it doesn't created yet)
+* install requirements (if it doesn't installed yet)
+* install dev requirements (if it doesn't installed yet)
+* run `ruff format --check --diff .`
+* run `ruff check .`
+* run `mypy`
+* run unit tests
+
+GitHub Actions use the same (`make check`) command to check pull requests.
 
 ## ToDo
 
