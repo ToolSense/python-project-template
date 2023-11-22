@@ -32,14 +32,17 @@ all:
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
+# If the package should not be installed, add --no-root to the install command.
+# This is for example the case when the package is a library or a framework such as Django.
 ci:
-	poetry install --with ci --no-root
+	poetry install --with ci
 
 ruff:
 	${RUN} ruff check .
 
+# If not developing a package, remove the --package option and replace with a dot (.)
 lint: ci ruff
-	${RUN} mypy .
+	${RUN} mypy -p python_project_template
 
 check_style: ci
 	${RUN} ruff format --check --diff .
@@ -54,20 +57,25 @@ coverage: ci docker_up
 
 check: check_style lint test
 
-test: ci docker_up
+# In case of dependency of docker, docker_up can be added after ci.
+test: ci
 	${RUN} pytest .
 
-run: ci docker_up
-	${PYTHON} manage.py runserver
+# In case of dependency of docker, docker_up can be added after ci.
+run_module: ci
+	${PYTHON} -m python_project_template
+
+run_file: ci
+	${PYTHON} python_project_template/__main__.py
 
 run_docker: ci
-	docker compose --profile web up --build --attach web
+	docker compose --profile main up --build --attach-dependencies
 
 docker_up:
-	docker compose --profile db up --build -d
+	docker compose --profile project-db up --build -d
 
 docker_down:
-	docker compose --profile web down
+	docker compose down
 
 clean: docker_down
 	poetry env remove --all
