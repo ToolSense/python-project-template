@@ -3,7 +3,7 @@ import logging
 
 from pytest import LogCaptureFixture
 
-from python_project_template.main import print_hi
+from python_project_template.__main__ import print_hi
 
 
 def test_print_hi(caplog: LogCaptureFixture) -> None:
