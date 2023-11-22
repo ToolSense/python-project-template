@@ -3,7 +3,6 @@ name: Deploy Production
 on:
   release:
     types: [released]
-  workflow_dispatch:
 
 jobs:
   test_and_lint:
@@ -48,9 +47,9 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
 
-      # - name: Build and push
-      #   uses: docker/build-push-action@v5
-      #   with:
-      #     context: .
-      #     tags: eu.gcr.io/toolsense/python-project-template:latest
-      #     push: true
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          tags: eu.gcr.io/toolsense/python-project-template:latest
+          push: true
