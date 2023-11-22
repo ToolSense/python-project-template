@@ -31,6 +31,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set version from tag
+        run: |
+          RELEASE_TAG=${{ github.ref_name }}
+          echo "$RELEASE_TAG"
+          sed -i -e 's/^version = "*.*.*"/version = "'"$RELEASE_TAG"'"/g' pyproject.toml
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
