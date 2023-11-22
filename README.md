@@ -16,12 +16,12 @@ Enjoy the development of your new project :beach_umbrella:
 * GitHub Actions workflow
 * Dockerfile & docker-compose
 
-## Recommended setup for developing with virtual environments
+## Recommended setup for developing with virtual environments & Pre-requirements
 To make best use of poetry and virtual environments it is advised to use pyenv , pipx and poetry. The main idea is that via pipx, you will always be able to run poetry to manage a repository. Poetry will then create local virtual environments to isolate the application. When initializing a new virtual environment, Poetry will use pyenv as a base for finding python versions.
 
-- Pyenv - Manage your locally available python versions
-- Pipx - Enable to run Poetry everywhere
-- Poetry - Manage local virtual environments and dependencies per development project
+- [pyenv](https://github.com/pyenv/pyenv) - Manage your locally available python versions
+- [Poetry](https://github.com/python-poetry/poetry) - Manage local virtual environments and dependencies per development project
+- [pipx](https://github.com/pypa/pipx) - Enable to run packages like Poetry everywhere in your local system
 
 ### Pyenv
 Pyenv is a system installed on your machine that makes it easier to manage several different python versions. To install pyenv, see the Github Repository [pyenv/pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation). Make sure to also follow the guide on how to setup the shell environment, as otherwise you will not be able to use it at all. You typically have to logout and login again or reboot after the setup to make sure everything works!
@@ -36,11 +36,6 @@ Pipx is a python tool that can install python packages so they are available glo
 - Run `pipx ensurepath`
 
 If everything worked out, you should be able to run `pipx --version`.
-
-## Pre-requirements
-* [pyenv](https://github.com/pyenv/pyenv)
-* [Poetry](https://github.com/python-poetry/poetry)
-* [pipx](https://github.com/pypa/pipx)
 
 ## Usage
 The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
