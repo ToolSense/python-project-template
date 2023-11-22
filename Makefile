@@ -60,17 +60,21 @@ check: check_style lint test
 test: ci
 	${RUN} pytest .
 
-run: ci docker_up
-	${PYTHON} manage.py runserver
+# In case of dependency of docker, docker_up can be added after ci.
+run_module: ci
+	${PYTHON} -m python_project_template
+
+run_file: ci
+	${PYTHON} python_project_template/__main__.py
 
 run_docker: ci
-	docker compose --profile web up --build --attach web
+	docker compose --profile main up --build --attach-dependencies
 
 docker_up:
-	docker compose --profile db up --build -d
+	docker compose --profile project-db up --build -d
 
 docker_down:
-	docker compose --profile web down
+	docker compose down
 
 clean: docker_down
 	poetry env remove --all
