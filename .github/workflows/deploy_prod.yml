@@ -1,9 +1,9 @@
-name: deploy_prod
+name: Deploy Production
 
 on:
-  push:
-    tags:
-      - '*'
+  release:
+    types: [released]
+  workflow_dispatch:
 
 jobs:
   test_and_lint:
@@ -32,6 +32,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set version from tag
+        run: |
+          RELEASE_TAG=${{ github.ref_name }}
+          echo "$RELEASE_TAG"
+          sed -i -e 's/^version = "*.*.*"/version = "'"$RELEASE_TAG"'"/g' pyproject.toml
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -42,9 +48,9 @@ jobs:
           username: _json_key
           password: ${{ secrets.GCR_JSON_KEY }}
 
-      - name: Build and push
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          tags: eu.gcr.io/toolsense/python-project-template:latest
-          push: true
+      # - name: Build and push
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     tags: eu.gcr.io/toolsense/python-project-template:latest
+      #     push: true

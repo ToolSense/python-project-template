@@ -1,4 +1,4 @@
-name: deploy_stage
+name: Deploy Development
 
 on:
   push:
