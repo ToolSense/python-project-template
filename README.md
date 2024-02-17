@@ -24,20 +24,12 @@ To install rye on your computer, follow the [guide](https://rye-up.com/guide/).
 1. Create a new Repository with this as repo as template
 2. Clone the repo
 3. Run `make init`
+4. run `rye sync`
 
-### Pyenv
-Pyenv is a system installed on your machine that makes it easier to manage several different python versions. To install pyenv, see the Github Repository [pyenv/pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation). Make sure to also follow the guide on how to setup the shell environment, as otherwise you will not be able to use it at all. You typically have to logout and login again or reboot after the setup to make sure everything works!
+The `make init`-command sets up the folders for sources and creates a pyproject.toml, internally it uses `rye init --py 3.12` to add Python 3.12.x as required. The command `rye sync` creates a virtual environment in a .venv locally and install all the packages as specified in the pyprojects.toml.
 
-Also make sure to install the build dependencies for Python! See [here](https://github.com/pyenv/pyenv/wiki#suggested-build-environment) for more information!
-
-### Pipx
-Pipx is a python tool that can install python packages so they are available globally in your system without polluting your system setup. To install pipx, do the following:
-- Make sure you are using your system python version
-- Run `pip install pipx --user`
-  - Note the --user as pipx should be installed in the local users home folder. Otherwise you risk complications when using poetry via pipx as it then is executing everything in the context of root.
-- Run `pipx ensurepath`
-
-If everything worked out, you should be able to run `pipx --version`.
+### Dependencies
+To add dependencies use `rye add` and `rye sync` after wards. To add development dependencies use the command `rye add -- dev <package name>`. When you run `rye sync` it automatically downloads and install all packages, including development requirements. To skip installation of development dependencies, use `rye sync --no-dev`.
 
 ## Usage
 The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
