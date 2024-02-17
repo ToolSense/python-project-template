@@ -16,12 +16,14 @@ Enjoy the development of your new project :beach_umbrella:
 * GitHub Actions workflow
 * Dockerfile & docker-compose
 
-## Recommended setup for developing with virtual environments & Pre-requirements
-To make best use of poetry and virtual environments it is advised to use pyenv , pipx and poetry. The main idea is that via pipx, you will always be able to run poetry to manage a repository. Poetry will then create local virtual environments to isolate the application. When initializing a new virtual environment, Poetry will use pyenv as a base for finding python versions.
+## Python Project management
+This project template is using rye as a python project manager. There are several advantages to this as rye will act as package manager and also manage virtual environment completely decoupled from your local setup. This means, as long as you have rye installed, it will completely manage the project locally.
 
-- [pyenv](https://github.com/pyenv/pyenv) - Manage your locally available python versions
-- [Poetry](https://github.com/python-poetry/poetry) - Manage local virtual environments and dependencies per development project
-- [pipx](https://github.com/pypa/pipx) - Enable to run packages like Poetry everywhere in your local system
+To install rye on your computer, follow the [guide](https://rye-up.com/guide/).
+
+1. Create a new Repository with this as repo as template
+2. Clone the repo
+3. Run `make init`
 
 ### Pyenv
 Pyenv is a system installed on your machine that makes it easier to manage several different python versions. To install pyenv, see the Github Repository [pyenv/pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation). Make sure to also follow the guide on how to setup the shell environment, as otherwise you will not be able to use it at all. You typically have to logout and login again or reboot after the setup to make sure everything works!

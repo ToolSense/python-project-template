@@ -1,12 +1,16 @@
 .PHONY: all ci ruff lint check_style coverage test run run_docker docker_up docker_down clean
 
 SHELL:=/bin/bash
-RUN=poetry run
+RUN=rye run
 PYTHON=${RUN} python
 
 all:
-	@echo "make ci"
-	@echo "    Create ci environment."
+	@echo "make init"
+	@echo "    Initialize project."
+	@echo "make dev"
+	@echo "    Create dev environment."
+	@echo "make prod"
+	@echo "    Create production environment."
 	@echo "make ruff"
 	@echo "    Run 'ruff' to lint project."
 	@echo "make lint"
@@ -32,25 +36,26 @@ all:
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
-# If the package should not be installed, add --no-root to the install command.
-# This is for example the case when the package is a library or a framework such as Django.
-ci:
+init:
+	rye init --py 3.12
+
+dev:
 	poetry install --with ci
 
 ruff:
 	${RUN} ruff check .
 
 # If not developing a package, remove the --package option and replace with a dot (.)
-lint: ci ruff
+lint: dev ruff
 	${RUN} mypy -p python_project_template
 
-check_style: ci
+check_style: dev
 	${RUN} ruff format --check --diff .
 
-style: ci
+style: dev
 	${RUN} ruff format .
 
-coverage: ci docker_up
+coverage: dev docker_up
 	${RUN} coverage run -m pytest
 	${RUN} coverage xml
 	${RUN} coverage html
@@ -58,17 +63,10 @@ coverage: ci docker_up
 check: check_style lint test
 
 # In case of dependency of docker, docker_up can be added after ci.
-test: ci
+test: dev
 	${RUN} pytest .
 
-# In case of dependency of docker, docker_up can be added after ci.
-run_module: ci
-	${PYTHON} -m python_project_template
-
-run_file: ci
-	${PYTHON} python_project_template/__main__.py
-
-run_docker: ci
+run_docker: dev
 	docker compose --profile main up --build --attach-dependencies
 
 docker_up:
@@ -78,7 +76,6 @@ docker_down:
 	docker compose down
 
 clean: docker_down
-	poetry env remove --all
 	find -type d | grep __pycache__ | xargs rm -rf
 	find -type d | grep .*_cache | xargs rm -rf
 	rm -rf *.eggs *.egg-info dist build docs/_build .cache .mypy_cache coverage/* .pytest_cache/ .ruff_cache/ report.html
