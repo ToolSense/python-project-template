@@ -31,11 +31,30 @@ The `make init`-command sets up the folders for sources and creates a pyproject.
 ### Dependencies
 To add dependencies use `rye add` and `rye sync` after wards. To add development dependencies use the command `rye add -- dev <package name>`. When you run `rye sync` it automatically downloads and install all packages, including development requirements. To skip installation of development dependencies, use `rye sync --no-dev`.
 
+There are two ways to import local modules, either absolute or relative:
+- Absolute import works for a built package as well as when running the script locally. It might raise some Pylance errors during use.
+- Relative will not work when running the file locally, but works good when installed as a package and with various type-checking tools
+
+Example of Absolute import:
+```python
+from toolsense.erpnext.api import api
+```
+
+Example of relative import:
+```python
+from .api import api
+```
+
+#### Relative imports
+If relative imports are used, it is also possible to create a main.py in the project folder and use absolute import is this file. That will allow the relative imports inside the package to work.
+
 ### Toolsense Namespace
 It is possible to use this this template to create a new package in the Toolsense namespace. It is however important to do the following:
-1. Create a new folder in src/ called "toolsense"
-2. Move your package files to this folder
-3. Change the build targets in the pyproject.toml to `packages = ["src/toolsense"]`
+1. Create a new repo using this template. It should be named `toolsense-<package name>`.
+2. Clone and enter the project folder.
+3. Create a new folder in src/ called "toolsense".
+4. Move your package files to this folder.
+5. Change the build targets in the pyproject.toml to `packages = ["src/toolsense"]`.
 
 ## Usage
 The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
