@@ -16,26 +16,45 @@ Enjoy the development of your new project :beach_umbrella:
 * GitHub Actions workflow
 * Dockerfile & docker-compose
 
-## Recommended setup for developing with virtual environments & Pre-requirements
-To make best use of poetry and virtual environments it is advised to use pyenv , pipx and poetry. The main idea is that via pipx, you will always be able to run poetry to manage a repository. Poetry will then create local virtual environments to isolate the application. When initializing a new virtual environment, Poetry will use pyenv as a base for finding python versions.
+## Python Project management
+This project template is using rye as a python project manager. There are several advantages to this as rye will act as package manager and also manage virtual environment completely decoupled from your local setup. This means, as long as you have rye installed, it will completely manage the project locally.
 
-- [pyenv](https://github.com/pyenv/pyenv) - Manage your locally available python versions
-- [Poetry](https://github.com/python-poetry/poetry) - Manage local virtual environments and dependencies per development project
-- [pipx](https://github.com/pypa/pipx) - Enable to run packages like Poetry everywhere in your local system
+To install rye on your computer, follow the [guide](https://rye-up.com/guide/).
 
-### Pyenv
-Pyenv is a system installed on your machine that makes it easier to manage several different python versions. To install pyenv, see the Github Repository [pyenv/pyenv](https://github.com/pyenv/pyenv?tab=readme-ov-file#installation). Make sure to also follow the guide on how to setup the shell environment, as otherwise you will not be able to use it at all. You typically have to logout and login again or reboot after the setup to make sure everything works!
+1. Create a new Repository with this as repo as template
+2. Clone the repo
+3. Run `make init`
+4. run `rye sync`
 
-Also make sure to install the build dependencies for Python! See [here](https://github.com/pyenv/pyenv/wiki#suggested-build-environment) for more information!
+The `make init`-command sets up the folders for sources and creates a pyproject.toml, internally it uses `rye init --py 3.12` to add Python 3.12.x as required. The command `rye sync` creates a virtual environment in a .venv locally and install all the packages as specified in the pyprojects.toml.
 
-### Pipx
-Pipx is a python tool that can install python packages so they are available globally in your system without polluting your system setup. To install pipx, do the following:
-- Make sure you are using your system python version
-- Run `pip install pipx --user`
-  - Note the --user as pipx should be installed in the local users home folder. Otherwise you risk complications when using poetry via pipx as it then is executing everything in the context of root.
-- Run `pipx ensurepath`
+### Dependencies
+To add dependencies use `rye add` and `rye sync` after wards. To add development dependencies use the command `rye add -- dev <package name>`. When you run `rye sync` it automatically downloads and install all packages, including development requirements. To skip installation of development dependencies, use `rye sync --no-dev`.
 
-If everything worked out, you should be able to run `pipx --version`.
+There are two ways to import local modules, either absolute or relative:
+- Absolute import works for a built package as well as when running the script locally. It might raise some Pylance errors during use.
+- Relative will not work when running the file locally, but works good when installed as a package and with various type-checking tools
+
+Example of Absolute import:
+```python
+from toolsense.erpnext.api import api
+```
+
+Example of relative import:
+```python
+from .api import api
+```
+
+#### Relative imports
+If relative imports are used, it is also possible to create a main.py in the project folder and use absolute import is this file. That will allow the relative imports inside the package to work.
+
+### Toolsense Namespace
+It is possible to use this this template to create a new package in the Toolsense namespace. It is however important to do the following:
+1. Create a new repo using this template. It should be named `toolsense-<package name>`.
+2. Clone and enter the project folder.
+3. Create a new folder in src/ called "toolsense".
+4. Move your package files to this folder.
+5. Change the build targets in the pyproject.toml to `packages = ["src/toolsense"]`.
 
 ## Usage
 The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
