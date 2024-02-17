@@ -53,8 +53,27 @@ It is possible to use this this template to create a new package in the Toolsens
 1. Create a new repo using this template. It should be named `toolsense-<package name>`.
 2. Clone and enter the project folder.
 3. Create a new folder in src/ called "toolsense".
-4. Move your package files to this folder.
-5. Change the build targets in the pyproject.toml to `packages = ["src/toolsense"]`.
+4. Remove the toolsense prefix from your package name.
+5. Move your package files to this folder.
+6. Change the build targets in the pyproject.toml to `packages = ["src/toolsense"]`.
+
+The final structure will look like the below for the project toolsense-erpnext:
+```bash
+toolsense-erpnext
+├── docker-compose.yml
+├── Dockerfile
+├── entrypoint.sh
+├── Makefile
+├── pyproject.toml
+├── README.md
+├── requirements-dev.lock
+├── requirements.lock
+├── ruff.toml
+└── src
+   └── toolsense
+      └── erpnext
+         └── __init__.py
+```
 
 ## Usage
 The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
