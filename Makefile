@@ -7,7 +7,7 @@ PYTHON=${RUN} python
 all:
 	@echo "make init"
 	@echo "    Initialize project."
-	@echo "make dev"
+	@echo "make sync"
 	@echo "    Create dev environment."
 	@echo "make prod"
 	@echo "    Create production environment."
@@ -39,8 +39,8 @@ all:
 init:
 	rye init --py 3.12
 
-dev:
-	poetry install --with ci
+sync:
+	rye sync
 
 ruff:
 	${RUN} ruff check .
