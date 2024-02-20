@@ -17,13 +17,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
+      - name: Set up Rye
+        uses: eifinger/setup-rye@v1
 
-      - name: Install poetry
-        uses: abatilo/actions-poetry@v2
+      - name: Sync Rye
+        run: make sync
 
-      - name: Check style, Linters, Tests
-        run: make check
+      - name: Check formatting
+        run: make check_format
+
+      - name: Check linting
+        run: make lint
+
+      - name: Check types
+        run: make check_types
