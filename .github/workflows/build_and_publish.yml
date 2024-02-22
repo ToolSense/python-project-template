@@ -67,7 +67,7 @@ jobs:
         if: github.event_name == 'release'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload "${{ github.event.release.tag_name }}" /dist/*
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/*
 
       - name: Authenticate to Google Cloud
         id: auth
