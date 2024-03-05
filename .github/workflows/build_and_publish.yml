@@ -28,7 +28,7 @@ jobs:
         run: make check_format
 
       - name: Check linting
-        run: make lint
+        run: make check_lint
 
       - name: Check types
         run: make check_types
@@ -72,4 +72,5 @@ jobs:
           REPO_URL: "https://europe-west1-python.pkg.dev/toolsense/toolsense-py-utils/"
           USERNAME: "_json_key_base64"
         run: |
-          rye publish -r $REPO_NAME --repository-url $REPO_URL --username $USERNAME --token $PASSWORD -y --skip-save-credentials
+          rye publish -r ${{ env.REPO_NAME }} --repository-url ${{ env.REPO_URL }} --username ${{ env.USERNAME }} --token ${{ env.PASSWORD }} -y
+

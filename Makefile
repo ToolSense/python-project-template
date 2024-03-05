@@ -8,19 +8,19 @@ all:
 	@echo "make init"
 	@echo "    Initialize project."
 	@echo "make sync"
-	@echo "    Create dev environment."
+	@echo "    Synchronize project (installs virtual env and dependencies)."
 	@echo "make prod"
-	@echo "    Create production environment."
-	@echo "make ruff"
-	@echo "    Run 'ruff' to lint project."
-	@echo "make lint"
-	@echo "    Run lint on project."
-	@echo "make check_style"
-	@echo "    Check code-style"
+	@echo "    Synchronize project without dev dependencies."
 	@echo "make style"
+	@echo "    Run linter and formatter, applying changes."
+	@echo "make format"
 	@echo "    Reformat the code to match the style"
-	@echo "make check"
-	@echo "    Check code-style, run linters, run tests"
+	@echo "make check_format"
+	@echo "    Check code-style"
+	@echo "make check_lint"
+	@echo "    Run linter on project."
+	@echo "make check_types"
+	@echo "    Run mypy on project."
 	@echo "make coverage"
 	@echo "    Run code coverage check."
 	@echo "make test"
@@ -42,28 +42,31 @@ init:
 sync:
 	rye sync
 
-ruff:
-	${RUN} ruff check .
+prod:
+	rye sync --no-dev
 
-# If not developing a package, remove the --package option and replace with a dot (.)
-lint: dev ruff
-	${RUN} mypy -p python_project_template
+style: format
+	rye lint --fix
 
-check_style: dev
-	${RUN} ruff format --check --diff .
+format:
+	rye fmt src
 
-style: dev
-	${RUN} ruff format .
+check_format: sync
+	rye format --check src
 
-coverage: dev docker_up
+check_lint: sync
+	rye lint
+
+check_types:
+	${RUN} mypy -p toolsense.flespi
+	${RUN} mypy src/tests
+
+coverage: sync docker_up
 	${RUN} coverage run -m pytest
 	${RUN} coverage xml
 	${RUN} coverage html
 
-check: check_style lint test
-
-# In case of dependency of docker, docker_up can be added after ci.
-test: dev
+test: sync
 	${RUN} pytest .
 
 run_docker: dev
