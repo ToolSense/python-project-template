@@ -21,6 +21,8 @@ all:
 	@echo "    Run linter on project."
 	@echo "make check_types"
 	@echo "    Run mypy on project."
+	@echo "make check"
+	@echo "    Run all checks."
 	@echo "make coverage"
 	@echo "    Run code coverage check."
 	@echo "make test"
@@ -60,6 +62,8 @@ check_lint: sync
 check_types:
 	${RUN} mypy -p toolsense.flespi
 	${RUN} mypy src/tests
+
+check: check_format check_lint check_types
 
 coverage: sync docker_up
 	${RUN} coverage run -m pytest
