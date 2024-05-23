@@ -1,0 +1,49 @@
+[project]
+name = "toolsense-template"
+version = "0.1.0"
+description = "Add your description here"
+authors = [
+    { name = "Robert Nyström", email = "robert.nystrom@toolsense.io" }
+]
+dependencies = []
+readme = "README.md"
+requires-python = ">= 3.12"
+
+[project.scripts]
+flespi = "toolsense.flespi.cli.main:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=8.0.1",
+    "mypy>=1.8.0",
+    "coverage>=7.4.1",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/toolsense"]
+
+[tool.coverage.run]
+branch = true
+source = ["src/toolsense"]
+data_file = "coverage/.coverage"
+relative_files = true
+omit = ["*/tests/*", "*/cli/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "if __name__ == .__main__.:",
+]
+
+[tool.coverage.html]
+directory = "coverage/html"
+
+[tool.coverage.xml]
+output = "coverage/coverage.xml"
