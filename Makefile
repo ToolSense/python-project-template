@@ -63,7 +63,7 @@ check_types:
 	${RUN} mypy -p toolsense.flespi
 	${RUN} mypy src/tests
 
-check: check_format check_lint check_types
+check: check_format check_lint check_types test
 
 coverage: sync docker_up
 	${RUN} coverage run -m pytest
