@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up Rye
-        uses: eifinger/setup-rye@v2
+        uses: eifinger/setup-rye@v4
 
       - name: Sync Rye
         run: make sync
@@ -31,3 +31,6 @@ jobs:
 
       - name: Check types
         run: make check_types
+
+      - name: Run tests
+        run: make test
