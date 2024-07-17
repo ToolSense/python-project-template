@@ -1,4 +1,4 @@
-.PHONY: all ci ruff lint check_style coverage test run run_docker docker_up docker_down clean
+.PHONY: all init sync prod lint format check check_lint check_format check_types coverage test run run_docker docker_up docker_down clean
 
 SHELL:=/bin/bash
 RUN=rye run
@@ -11,18 +11,18 @@ all:
 	@echo "    Synchronize project (installs virtual env and dependencies)."
 	@echo "make prod"
 	@echo "    Synchronize project without dev dependencies."
-	@echo "make style"
+	@echo "make lint"
 	@echo "    Run linter and formatter, applying changes."
 	@echo "make format"
 	@echo "    Reformat the code to match the style"
-	@echo "make check_format"
-	@echo "    Check code-style"
-	@echo "make check_lint"
-	@echo "    Run linter on project."
-	@echo "make check_types"
-	@echo "    Run mypy on project."
 	@echo "make check"
 	@echo "    Run all checks."
+	@echo "make check_lint"
+	@echo "    Run linter on project."
+	@echo "make check_format"
+	@echo "    Check code-style"
+	@echo "make check_types"
+	@echo "    Run mypy on project."
 	@echo "make coverage"
 	@echo "    Run code coverage check."
 	@echo "make test"
@@ -47,23 +47,23 @@ sync:
 prod:
 	rye sync --no-dev
 
-style: format
+lint: format
 	rye lint --fix
 
 format:
-	rye fmt src
+	rye fmt
 
-check_format: sync
-	rye format --check src
-
-check_lint: sync
+check_lint:
 	rye lint
+
+check_format:
+	rye format --check
 
 check_types:
 	${RUN} mypy -p toolsense.flespi
 	${RUN} mypy src/tests
 
-check: check_format check_lint check_types
+check: sync check_format check_lint check_types
 
 coverage: sync docker_up
 	${RUN} coverage run -m pytest
@@ -73,7 +73,7 @@ coverage: sync docker_up
 test: sync
 	${RUN} pytest .
 
-run_docker: dev
+run_docker: sync
 	docker compose --profile main up --build --attach-dependencies
 
 docker_up:
