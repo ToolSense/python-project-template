@@ -18,10 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Rye
-        uses: eifinger/setup-rye@v4
+      - name: Setup uv
+        uses: eifinger/setup-uv@v1
 
-      - name: Sync Rye
+      - name: Sync Python and dependencies
         run: make sync
 
       - name: Check formatting
@@ -50,14 +50,14 @@ jobs:
           echo "$RELEASE_TAG"
           sed -i -e 's/^version = "*.*.*"/version = "'"$RELEASE_TAG"'"/g' pyproject.toml
 
-      - name: Set up Rye
-        uses: eifinger/setup-rye@v4
+      - name: Setup uv
+        uses: eifinger/setup-uv@v1
 
-      - name: Sync Rye (Create virtual env and install dependencies)
+      - name: Sync Python and dependencies
         run: make sync
 
       - name: Build package
-        run: rye build
+        run: uv build
 
       - name: Upload packages to Release
         if: github.event_name == 'release'
@@ -72,4 +72,4 @@ jobs:
           REPO_URL: "https://europe-west1-python.pkg.dev/toolsense/toolsense-py-utils/"
           USERNAME: "_json_key_base64"
         run: |
-          rye publish -r ${{ env.REPO_NAME }} --repository-url ${{ env.REPO_URL }} --username ${{ env.USERNAME }} --token ${{ env.PASSWORD }} -y
+          uvx twine upload --repository ${{ env.REPO_NAME }} --repository-url ${{ env.REPO_URL }} --username ${{ env.USERNAME }} --password ${{ env.PASSWORD }} dist/*

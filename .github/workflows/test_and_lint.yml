@@ -17,10 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Rye
-        uses: eifinger/setup-rye@v4
+      - name: Setup uv
+        uses: eifinger/setup-uv@v1
 
-      - name: Sync Rye
+      - name: Sync Python and dependencies
         run: make sync
 
       - name: Check formatting
