@@ -83,7 +83,7 @@ target/
 profile_default/
 ipython_config.py
 
-# pyenv (Rye)
+# pyenv (uv)
 .python-version
 
 # pipenv

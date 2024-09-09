@@ -1,7 +1,7 @@
 .PHONY: all init sync prod lint format check check_lint check_format check_types coverage test run run_docker docker_up docker_down clean
 
 SHELL:=/bin/bash
-RUN=rye run
+RUN=uv run
 PYTHON=${RUN} python
 
 all:
@@ -39,31 +39,31 @@ all:
 	@echo "    Remove python artifacts and virtualenv"
 
 init:
-	rye init --py 3.12
+	uv init --python 3.12
 
 sync:
-	rye sync
+	uv sync
 
 prod:
-	rye sync --no-dev
+	uv sync --no-dev
 
 lint: format
-	rye lint --fix
+	${RUN} ruff check --fix
 
 format:
-	rye fmt
-
-check_lint:
-	rye lint
+	${RUN} ruff format src
 
 check_format:
-	rye format --check
+	${RUN} ruff format --check src
+
+check_lint:
+	${RUN} ruff check
 
 check_types:
-	${RUN} mypy -p toolsense.flespi
+	${RUN} mypy -p toolsense.python_project_template
 	${RUN} mypy src/tests
 
-check: sync check_format check_lint check_types
+check: sync check_format check_lint check_types test
 
 coverage: sync docker_up
 	${RUN} coverage run -m pytest
