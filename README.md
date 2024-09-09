@@ -17,19 +17,19 @@ Enjoy the development of your new project :beach_umbrella:
 * Dockerfile & docker-compose
 
 ## Python Project management
-This project template is using rye as a python project manager. There are several advantages to this as rye will act as package manager and also manage virtual environment completely decoupled from your local setup. This means, as long as you have rye installed, it will completely manage the project locally.
+This project template is using uv as a python project manager. There are several advantages to this as uv will act as package manager and also manage virtual environment completely decoupled from your local setup. This means, as long as you have uv installed, it will completely manage the project locally.
 
-To install rye on your computer, follow the [guide](https://rye-up.com/guide/).
+To install uv on your computer, follow the [guide](https://docs.astral.sh/uv/).
 
 1. Create a new Repository with this as repo as template
 2. Clone the repo
 3. Run `make init`
-4. run `rye sync`
+4. run `uv sync`
 
-The `make init`-command sets up the folders for sources and creates a pyproject.toml, internally it uses `rye init --py 3.12` to add Python 3.12.x as required. The command `rye sync` creates a virtual environment in a .venv locally and install all the packages as specified in the pyprojects.toml.
+The `make init`-command sets up the folders for sources and creates a pyproject.toml, internally it uses `uv init --python 3.12` to add Python 3.12.x as required. The command `uv sync` creates a virtual environment in a .venv locally and install all the packages as specified in the pyprojects.toml.
 
 ### Dependencies
-To add dependencies use `rye add` and `rye sync` after wards. To add development dependencies use the command `rye add -- dev <package name>`. When you run `rye sync` it automatically downloads and install all packages, including development requirements. To skip installation of development dependencies, use `rye sync --no-dev`.
+To add dependencies use `uv add` and `uv sync` after wards. To add development dependencies use the command `uv add --dev <package name>`. When you run `uv sync` it automatically downloads and install all packages, including development requirements. To skip installation of development dependencies, use `uv sync --no-dev`.
 
 There are two ways to import local modules, either absolute or relative:
 - Absolute import works for a built package as well as when running the script locally. It might raise some Pylance errors during use.
@@ -103,5 +103,4 @@ For example `make check` will do:
 GitHub Actions use the same (`make check`) command to check pull requests.
 
 ## ToDo
-
 * Pre-commit hook
