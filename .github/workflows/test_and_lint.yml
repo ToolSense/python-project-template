@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup uv
-        uses: eifinger/setup-uv@v1
+        uses: astral-sh/setup-uv@v2
 
       - name: Sync Python and dependencies
         run: make sync
