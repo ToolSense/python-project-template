@@ -38,7 +38,12 @@ all:
 	@echo "make clean"
 	@echo "    Remove python artifacts and virtualenv"
 
-init:
+init_package:
+	uv init --python 3.12 --package
+	uv add --dev pytest coverage mypy ruff mkdocs mkdocs-material mkdocs-git-revision-date-localized-plugin
+	rm -rf Dockerfile docker-compose.yml entrypoint.sh .dockerignore
+
+init_script:
 	uv init --python 3.12
 
 sync:
