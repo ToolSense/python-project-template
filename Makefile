@@ -82,6 +82,9 @@ docker_up:
 docker_down:
 	docker compose down
 
+deploy_docs:
+	${RUN} mkdocs gh-deploy
+
 clean: docker_down
 	find -type d | grep __pycache__ | xargs rm -rf
 	find -type d | grep .*_cache | xargs rm -rf
