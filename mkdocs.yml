@@ -1,0 +1,31 @@
+site_name: ToolSense Flespi
+nav:
+  - Home: index.md
+  - Features:
+    - Regular features: features.md
+    - Cool: cool_feature.md
+theme:
+  name: material
+  features:
+    - content.code.copy
+  palette:
+    primary: 'orange'
+  icon:
+    repo: fontawesome/brands/github
+repo_url: https://github.com/ToolSense/python-project-template
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true
+  - tags
+  - search
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.blocks.admonition
+  - pymdownx.blocks.definition
+  - pymdownx.blocks.details
