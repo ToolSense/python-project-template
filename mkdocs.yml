@@ -1,6 +1,7 @@
 site_name: ToolSense Flespi
 nav:
   - Home: index.md
+  - Features: features.md
 theme:
   name: material
   features:
@@ -25,3 +26,4 @@ markdown_extensions:
       alternate_style: true
   - pymdownx.blocks.admonition
   - pymdownx.blocks.definition
+  - pymdownx.blocks.details

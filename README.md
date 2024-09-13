@@ -75,6 +75,12 @@ toolsense-erpnext
          └── __init__.py
 ```
 
+## Documentation
+Documentation is generated using mkdocs and using the theme mkdocs-material.
+- https://github.com/mkdocs/mkdocs
+- https://squidfunk.github.io/mkdocs-material/
+- https://facelessuser.github.io/pymdown-extensions/
+
 ## Usage
 The naming of the repo is typically a few words separated by a dash (-) and the package name is the same name but separated by underscores (_). It is not good practice to have a repository or package name with a `_test`-suffix as this is used for test-cases within the package.
 
