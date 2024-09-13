@@ -1,7 +1,9 @@
 site_name: ToolSense Flespi
 nav:
   - Home: index.md
-  - Features: features.md
+  - Features:
+    - Regular features: features.md
+    - Cool: cool_feature.md
 theme:
   name: material
   features:
