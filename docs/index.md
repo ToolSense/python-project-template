@@ -1,5 +1,8 @@
 # Welcome to MkDocs
 
+MkDocs is a fast, simple static site generator for creating project documentation.
+
+
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 ## Commands
