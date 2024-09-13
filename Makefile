@@ -87,6 +87,7 @@ docker_up:
 docker_down:
 	docker compose down
 
+# Deploy documentation to GitHub Pages using MkDocs
 deploy_docs:
 	${RUN} mkdocs gh-deploy
 
